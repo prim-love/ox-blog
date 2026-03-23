@@ -27,8 +27,8 @@ pub fn load_from_dir(path: impl AsRef<Path>) -> Result<impl Iterator<Item = Blog
 {
     let dir: Vec<_> = WalkDir::new(path)
         .into_iter()
-        .map(|x| x.map_err(LoadError::WalkDir))
-        .map(|x| x.and_then(|x| load_from_file(x.into_path())))
+        .filter_map(|x| x.ok())
+        .map(|x| load_from_file(x.into_path()))
         .try_collect()?;
 
     Ok(dir.into_iter().flatten())
