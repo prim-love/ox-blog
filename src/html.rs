@@ -9,7 +9,7 @@ where
     let index = {
         let str = blogs.map(|x| format!
                   {
-                      "<li><a href='/{}/index.html'></a>{}</li>",
+                      "<li><a href='/{}'></a>{}</li>",
                       slugify!(&x.name),
                       x.name,
                   })
