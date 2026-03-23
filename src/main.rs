@@ -11,17 +11,18 @@ mod load;
 #[derive(Debug, Parser)]
 struct Args
 {
-    path: PathBuf,
+    org: PathBuf,
+    out: PathBuf,
 }
 
 fn rapp() -> Result<(), load::LoadError>
 {
-    let Args { path } = Args::parse();
+    let Args { org, out } = Args::parse();
 
-    let blogs         = load::load_from_dir(&path)?
+    let blogs         = load::load_from_dir(org)?
         .collect::<Vec<_>>();
 
-    html::write(path, blogs.iter())?;
+    html::write(out, blogs.iter())?;
 
     Ok(())
 }
