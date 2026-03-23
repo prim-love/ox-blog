@@ -16,7 +16,6 @@ pub struct Blog
 pub fn from_document(d: &Document) -> impl Iterator<Item = Blog> + use<>
 {
     d.headlines()
-        .filter(|x| x.tags().any(|x| x == "blog"))
         .map(|x| Blog::from_headline(&x))
         .flatten()
 }
@@ -64,5 +63,5 @@ pub fn get_blog_path(h: &Headline) -> Option<Path>
 
 pub fn get_blog_name(h: &Headline) -> String
 {
-    h.title_raw()
+    h.title_raw().trim().to_string()
 }
