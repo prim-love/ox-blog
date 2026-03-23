@@ -1,0 +1,16 @@
+[package]
+name    = "ox-blog"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+slugify = "0.1.0"
+walkdir = "2.5.0"
+orgize  = "0.10.0-alpha.10"
+rowan   = "0.15.15"
+clap = { version = "4.6.0", features = ["derive"] }
+anyhow = "1.0.102"
+itertools = "0.14.0"
+nom = "8.0.0"
+derive_more = { version = "2.1.1", features = ["deref"] }
+thiserror = "2.0.18"
