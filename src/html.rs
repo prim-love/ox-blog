@@ -76,7 +76,11 @@ where
         let page = build_blog_page(blog);
 
         let path = loc
-            .join(slug)
+            .join(slug);
+
+        std::fs::create_dir_all(&path)?;
+
+        let path = path
             .join("index.html");
 
         std::fs::write(path, page)?;
