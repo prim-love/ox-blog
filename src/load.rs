@@ -27,9 +27,18 @@ pub fn load_from_dir(path: impl AsRef<Path>) -> Result<impl Iterator<Item = Blog
 {
     let dir: Vec<_> = WalkDir::new(path)
         .into_iter()
-        .filter_map(|x| x.ok())
-        .map(|x| load_from_file(x.into_path()))
+        .filter_ok(is_org)
+        .map(|x| x.map_err(LoadError::WalkDir))
+        .map(|x| x.and_then(|x| load_from_file(x.into_path())))
         .try_collect()?;
 
     Ok(dir.into_iter().flatten())
+}
+
+fn is_org(ent: &walkdir::DirEntry) -> bool
+{
+    ent.file_name()
+        .to_str()
+        .map(|x| x.ends_with(".org"))
+        .unwrap_or(false)
 }
